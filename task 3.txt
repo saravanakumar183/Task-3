@@ -1,0 +1,88 @@
+import java.util.Scanner;
+
+class ATM {
+    private double balance;
+
+    public ATM(double initialBalance) {
+        this.balance = initialBalance;
+    }
+
+    public void displayMenu() {
+        System.out.println("\nATM Menu:");
+        System.out.println("1. Withdraw");
+        System.out.println("2. Deposit");
+        System.out.println("3. Check Balance");
+        System.out.println("4. Exit");
+    }
+
+    public void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            System.out.println("Withdrawal successful. New balance: " + balance);
+        } else {
+            System.out.println("Invalid amount or insufficient funds. Withdrawal failed.");
+        }
+    }
+
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Deposit successful. New balance: " + balance);
+        } else {
+            System.out.println("Invalid amount. Deposit failed.");
+        }
+    }
+
+    public void checkBalance() {
+        System.out.println("Current Balance: " + balance);
+    }
+
+    public void exit() {
+        System.out.println("Exiting. Thank you!");
+        System.exit(0);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Initialize the ATM with an initial balance
+        ATM atm = new ATM(1000.0);
+
+        while (true) {
+            // Display the ATM menu
+            atm.displayMenu();
+
+            // Get user input
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            // Process the user's transaction
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter withdrawal amount: ");
+                    double withdrawAmount = scanner.nextDouble();
+                    atm.withdraw(withdrawAmount);
+                    break;
+
+                case 2:
+                    System.out.print("Enter deposit amount: ");
+                    double depositAmount = scanner.nextDouble();
+                    atm.deposit(depositAmount);
+                    break;
+
+                case 3:
+                    atm.checkBalance();
+                    break;
+
+                case 4:
+                    atm.exit();
+                    break;
+
+                default:
+                    System.out.println("Invalid choice. Please choose a valid option.");
+            }
+        }
+    }
+}
